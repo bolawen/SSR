@@ -1,3 +1,3 @@
 ## master 分支: 
-## VueSSR 分支: vue
-## ReactSSR 分支: react
+## Webpack版VueSSR 分支: WebpackVue
+## Webpack版ReactSSR 分支: WebpackReact
