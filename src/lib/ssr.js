@@ -17,7 +17,8 @@ export const buildHtmlString = (content) => {
     <title>基于Webpack的React服务端渲染</title>
   </head>
   <body>
-    ${content}
+    <div id='root'>${content}</div>
+    <script src='/client/index.js'></script>
   </body>
   </html>`;
   return htmlString;
