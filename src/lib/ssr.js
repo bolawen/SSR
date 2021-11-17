@@ -1,13 +1,23 @@
-import React from 'react';
-import App from "../pages/App";
+import React from "react";
+import RouterList from "../router/index";
 import ReactDOMServer from "react-dom/server";
+import { StaticRouter } from "react-router-dom";
+import { renderRoutes } from "react-router-config";
 
-export const render = () => {
-  const content = ReactDOMServer.renderToString(<App />);
+const buildApp = (ctx,context) => {
+  return (
+    <StaticRouter location={ctx.request.path} context={context}>
+      {renderRoutes(RouterList)}
+    </StaticRouter>
+  );
+};
+
+export const render = (ctx,context) => {
+  const content = ReactDOMServer.renderToString(buildApp(ctx,context));
   return content;
 };
 
-export const buildHtmlString = (content) => {
+export const buildHtmlString = (ctx,content) => {
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
   <head>

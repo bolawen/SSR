@@ -5,9 +5,9 @@ const Base = require('./webpack.config.base');
 const Client = {
     entry: Path.resolve(process.cwd(), "./src/client/index.js"),
     output: {
-        path: Path.resolve(process.cwd(), "build"),
-        filename: "./client/index.js",
         publicPath:'/',
+        filename: "./client/index.js",
+        path: Path.resolve(process.cwd(), "build"),
     },
 }
 

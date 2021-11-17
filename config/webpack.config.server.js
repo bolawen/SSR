@@ -6,8 +6,9 @@ const Server = {
     target:'node',
     entry: Path.resolve(process.cwd(), "./src/server/index.js"),
     output: {
-        path: Path.resolve(process.cwd(), "build"),
+        publicPath:'/',
         filename: "./server/index.js",
+        path: Path.resolve(process.cwd(), "build"),
     },
 }
 

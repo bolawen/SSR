@@ -1,9 +1,11 @@
-import React from 'react';
-import App from '../pages/App';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import RouterList from '../router/index'
+import { BrowserRouter } from "react-router-dom";
+import { renderRoutes } from "react-router-config";
 
-const render = ()=>{
-    return <App/>
-}
+const buildApp = () => {
+  return <BrowserRouter>{renderRoutes(RouterList)}</BrowserRouter>;
+};
 
-ReactDOM.hydrate(render(),document.getElementById('root'));
+ReactDOM.hydrate(buildApp(), document.getElementById("root"));
