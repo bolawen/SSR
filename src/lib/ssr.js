@@ -1,23 +1,27 @@
 import React from "react";
+import { Provider } from "react-redux";
+import GetStore from "../store/index";
 import RouterList from "../router/index";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 
-const buildApp = (ctx,context) => {
+const buildApp = (ctx, context) => {
   return (
-    <StaticRouter location={ctx.request.path} context={context}>
-      {renderRoutes(RouterList)}
-    </StaticRouter>
+    <Provider store={GetStore()}>
+      <StaticRouter location={ctx.request.path} context={context}>
+        {renderRoutes(RouterList)}
+      </StaticRouter>
+    </Provider>
   );
 };
 
-export const render = (ctx,context) => {
-  const content = ReactDOMServer.renderToString(buildApp(ctx,context));
+export const render = (ctx, context) => {
+  const content = ReactDOMServer.renderToString(buildApp(ctx, context));
   return content;
 };
 
-export const buildHtmlString = (ctx,content) => {
+export const buildHtmlString = (ctx, content) => {
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
   <head>

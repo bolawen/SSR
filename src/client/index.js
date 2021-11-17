@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import RouterList from '../router/index'
+import GetStore from "../store/index";
+import { Provider } from "react-redux";
+import RouterList from "../router/index";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 
 const buildApp = () => {
-  return <BrowserRouter>{renderRoutes(RouterList)}</BrowserRouter>;
+  return (
+    <Provider store={GetStore()}>
+      <BrowserRouter>{renderRoutes(RouterList)}</BrowserRouter>
+    </Provider>
+  );
 };
 
 ReactDOM.hydrate(buildApp(), document.getElementById("root"));

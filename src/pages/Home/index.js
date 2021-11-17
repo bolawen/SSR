@@ -1,5 +1,7 @@
-import React,{useState} from "react";
+import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
 import image from "../../assets/images/334.jpg";
+import { changeImageListAsync } from "../../store/action/image";
 
 function Home(props) {
   const [style, setStyle] = useState({ width: "200px" });
@@ -21,9 +23,12 @@ function Home(props) {
       };
     });
   };
-  const handleJump=(path)=>{
+  const handleJump = (path) => {
     props.history.push(path);
-  }
+  };
+  useEffect(() => {
+    props.changeImageListAsync({type:'girl'});
+  },[]);
   return (
     <div>
       <h3>基于Webpack的React服务端渲染</h3>
@@ -35,10 +40,21 @@ function Home(props) {
         <button onClick={() => handleSmall(10)}>变小</button>
       </div>
       <div>
-        <button onClick={()=>handleJump('/about')}>跳转至 About 页面</button>
+        <button onClick={() => handleJump("/about")}>跳转至 About 页面</button>
       </div>
     </div>
   );
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    imageList: state.imageList,
+  };
+};
+const mapDispatchToProps = {
+  changeImageListAsync,
+};
+
+const connectHome = connect(mapStateToProps,mapDispatchToProps)(Home);
+
+export default connectHome;
