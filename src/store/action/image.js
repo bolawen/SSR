@@ -9,10 +9,15 @@ export const changeImageList = (data) => {
 };
 
 export const changeImageListAsync = (playload) => {
-  return async (dispatch) => {
-    const { code, data } = await api.findImageList(playload);
-    if (code == 0) {
-      dispatch(changeImageList(data));
-    }
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      const { code, data } = await api.findImageList(playload);
+      if (code == 0) {
+        dispatch(changeImageList(data));
+        resolve();
+      }else{
+        reject();
+      }
+    });
   };
 };

@@ -1,10 +1,14 @@
-import Reducer from './reducer';
+import Reducer from "./reducer";
 import Thunk from "redux-thunk";
-import Logger from 'redux-logger';
-import { createStore,applyMiddleware } from "redux";
+import Logger from "redux-logger";
+import { createStore, applyMiddleware } from "redux";
 
-const GetStore = ()=>{
-    return createStore(Reducer,applyMiddleware(Thunk,Logger));
-}
+export const GetServerStore = () => {
+  return createStore(Reducer, applyMiddleware(Thunk, Logger));
+};
 
-export default GetStore;
+export const GetClientStore = () => {
+  const defaultState = window.context.state;
+  return createStore(Reducer, defaultState, applyMiddleware(Thunk, Logger));
+};
+
