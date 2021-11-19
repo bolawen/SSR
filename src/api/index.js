@@ -12,8 +12,12 @@ const apiList = {
         method:'get'
     },
     login:{
-        url:'/user/login',
+        url:'/userByJwt/login',
         method:'post'
+    },
+    findUser:{
+        url:'/userByJwt/find',
+        method:'get'
     }
 };
 const apiRequest = isServer ? serverRequest : clientRequest;

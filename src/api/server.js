@@ -4,9 +4,19 @@ import { mapValues, omit } from "lodash";
 const request = axios.create({
   withCredentials: true,
   baseURL: "http://localhost:4000/",
+  // baseURL:'https://bolawen.com/server'
 });
 
-request.interceptors.request.use();
+request.interceptors.request.use(
+  (config) => {
+    const { token } = config;
+    if (token) {
+      config.headers.common["Authorization"] = "Bearer " + token;
+    }
+    return config;
+  },
+  (error) => {}
+);
 request.interceptors.response.use();
 export const requestTransform = (config) => {
   return mapValues(config, (value) => {
@@ -18,10 +28,12 @@ export const requestTransform = (config) => {
       url = value.url;
       method = value.method;
       config = omit(value, ["url", "method"]);
+      config.headers = {};
     }
     method = method || "get";
     if (method === "get") {
-      return function (params) {
+      return function (params, ctx) {
+        config.token = ctx.cookies.get("token");
         return new Promise((resolve, reject) => {
           request[method](url, { params, ...config })
             .then((result) => {
@@ -33,7 +45,8 @@ export const requestTransform = (config) => {
         });
       };
     } else if (method === "post") {
-      return function (params) {
+      return function (params, ctx) {
+        config.token = ctx.cookies.get("token");
         return new Promise((resolve, reject) => {
           request[method](url, params, config)
             .then((result) => {

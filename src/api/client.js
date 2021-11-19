@@ -1,12 +1,25 @@
 import axios from "axios";
 import { mapValues, omit } from "lodash";
+import { getCookie } from "../utils/cookie";
 
 const request = axios.create({
   withCredentials: true,
   baseURL: "http://localhost:4000/",
+  // baseURL:'https://bolawen.com/server'
 });
 
-request.interceptors.request.use();
+request.interceptors.request.use(
+  (config) => {
+    const token = getCookie("token");
+    if(token){
+      config.headers.common['Authorization'] = 'Bearer ' + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 request.interceptors.response.use();
 export const requestTransform = (config) => {
   return mapValues(config, (value) => {

@@ -3,11 +3,13 @@ import { render, preRender, buildHtmlString } from "../../lib/ssr";
 
 class Controller {
   static async get(ctx) {
-    const context = {css:[]};
-    const store = GetServerStore();
+    const context = { css: [] };
+    const store = GetServerStore(ctx);
     await preRender(ctx, store);
     const content = await render(ctx, context, store);
-    const htmlString = await buildHtmlString(ctx, store, content,context);
+    const htmlString = await buildHtmlString(ctx, store, content, context);
+    if (context.action === "REPLACE") {
+    }
     if (context.NOT_FOUND) {
       ctx.response.status = 404;
     }
@@ -16,5 +18,3 @@ class Controller {
 }
 
 export default Controller;
-
-

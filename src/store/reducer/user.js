@@ -1,17 +1,8 @@
-import { ChangeUsername, ChangeToken } from "../type";
+import { ChangeUser } from "../type";
 
-export const UsernameReducer = (state = "", action) => {
+export const UserReducer = (state = {}, action) => {
   switch (action.type) {
-    case ChangeUsername:
-      return action.data;
-    default:
-      return state;
-  }
-};
-
-export const TokenReducer = (state = "", action) => {
-  switch (action.type) {
-    case ChangeToken:
+    case ChangeUser:
       return action.data;
     default:
       return state;
