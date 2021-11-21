@@ -1,13 +1,24 @@
 import AppCss from "./App.scss";
+import { Helmet } from "react-helmet";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import React, { useEffect } from "react";
 import withStyle from "../hoc/withStyleHoc";
-import { renderRoutes } from "react-router-config";
 import { findUser } from "../store/action/user";
+import { renderRoutes } from "react-router-config";
 
 function App(props) {
-  useEffect(() => {}, []);
-  return <div id="app">{renderRoutes(props.route.routes)}</div>;
+  return (
+    <Fragment>
+      <Helmet>
+        <title>柏拉图-基于React实现服务端渲染</title>
+        <meta
+          name="discription"
+          content="柏拉图-基于React实现服务端渲染"
+        ></meta>
+      </Helmet>
+      <div id="app">{renderRoutes(props.route.routes)}</div>
+    </Fragment>
+  );
 }
 
 const mapStateToProps = (state) => {

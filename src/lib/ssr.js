@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Provider } from "react-redux";
 import RouterList from "../router/index";
 import ReactDOMServer from "react-dom/server";
@@ -41,14 +42,17 @@ export const render = (ctx, context, store) => {
   return content;
 };
 
-export const buildHtmlString = (ctx, store, content,context) => {
-  const css = context.css.length?context.css.join('\n'):'';
+export const buildHtmlString = (ctx, store, content, context) => {
+  const helmet = Helmet.renderStatic();
+  const css = context.css.length ? context.css.join("\n") : "";
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
     <style>
       ${css}
     </style>

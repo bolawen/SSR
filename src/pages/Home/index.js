@@ -30,14 +30,16 @@ function Home(props) {
   };
   useEffect(() => {
     props.changeImageListAsync({ type: "other" });
-    api.findByAuthImageList({ type: "girl" }).then((res) => {
-      const { code, data } = res;
-      if (code == 0) {
-        setGirlList(() => {
-          return data;
-        });
-      }
-    });
+    if (props.user.username) {
+      api.findByAuthImageList({ type: "girl" }).then((res) => {
+        const { code, data } = res;
+        if (code == 0) {
+          setGirlList(() => {
+            return data;
+          });
+        }
+      });
+    }
   }, []);
   return (
     <div>
@@ -79,7 +81,9 @@ function Home(props) {
             );
           })
         ) : (
-          <button onClick={() => handleJump("/login?redirect=/")}>登录后可查看图片</button>
+          <button onClick={() => handleJump("/login?redirect=/")}>
+            登录后可查看图片
+          </button>
         )}
       </div>
     </div>
