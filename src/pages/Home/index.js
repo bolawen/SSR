@@ -1,8 +1,8 @@
 import api from "../../api/";
 import { connect } from "react-redux";
-import image from "../../assets/images/334.jpg";
 import React, { useState, useEffect } from "react";
 import { changeImageListAsync } from "../../store/action/image";
+import axios from "axios";
 
 function Home(props) {
   const [style, setStyle] = useState({ width: "200px" });
@@ -31,7 +31,7 @@ function Home(props) {
   useEffect(() => {
     props.changeImageListAsync({ type: "other" });
     if (props.user.username) {
-      api.findByAuthImageList({ type: "girl" }).then((res) => {
+      api.findByAuthImageList({ type: "other" }).then((res) => {
         const { code, data } = res;
         if (code == 0) {
           setGirlList(() => {
@@ -44,9 +44,6 @@ function Home(props) {
   return (
     <div>
       <h3>基于Webpack的React服务端渲染</h3>
-      <div>
-        <img style={style} src={image} />
-      </div>
       <div>
         <h3>交互——同构</h3>
         <button onClick={() => handleBig(10)}>变大</button>

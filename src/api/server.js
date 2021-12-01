@@ -12,6 +12,7 @@ request.interceptors.request.use(
     const { token } = config;
     if (token) {
       config.headers.common["Authorization"] = "Bearer " + token;
+      config.headers.common['Origin'] = "http://localhost:8090"
     }
     return config;
   },
